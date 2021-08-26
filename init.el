@@ -14,6 +14,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -32,6 +34,7 @@
 
 (use-package haskell-mode
   :ensure t
+  :init (haskell-mode)
   :config
   (setq haskell-process-type 'stack-ghci))
 
@@ -79,3 +82,16 @@
 
 (use-package all-the-icons)
 
+;; LSP
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (haskell-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-haskell)
