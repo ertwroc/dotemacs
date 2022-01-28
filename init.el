@@ -92,8 +92,8 @@
 
 
 ; There is a bug in melpa stable version https://github.com/Yevgnen/ivy-rich/issues/88
-(use-package ivy-rich
-  :init (ivy-rich-mode 1))
+;(use-package ivy-rich
+;  :init (ivy-rich-mode 1))
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -101,6 +101,8 @@
 	 :map minibuffer-local-map
 	 ("C-x C-h" . counsel-minibuffer-history)))
 
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
 
 ;; LSP
 
@@ -110,6 +112,7 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-log-io 1)
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (haskell-mode . lsp)
          ;; if you want which-key integration
